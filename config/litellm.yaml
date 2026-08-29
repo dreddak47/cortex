@@ -1,0 +1,37 @@
+# LiteLLM proxy config — the entire model gateway.
+# Tiers: free (triage/routing), cheap (research), premium (implementation).
+# Budgets here are the outer rail; cortex.core.budget is the inner rail.
+
+model_list:
+  # --- free tier ---
+  - model_name: free/llama-70b
+    litellm_params:
+      model: groq/llama-3.3-70b-versatile
+      api_key: os.environ/GROQ_API_KEY
+  - model_name: free/deepseek
+    litellm_params:
+      model: openrouter/deepseek/deepseek-chat-v3-0324:free
+      api_key: os.environ/OPENROUTER_API_KEY
+  - model_name: free/qwen-coder
+    litellm_params:
+      model: openrouter/qwen/qwen3-coder:free
+      api_key: os.environ/OPENROUTER_API_KEY
+
+  # --- cheap tier ---
+  - model_name: cheap/haiku
+    litellm_params:
+      model: anthropic/claude-haiku-4-5-20251001
+      api_key: os.environ/ANTHROPIC_API_KEY
+
+  # --- premium tier (direct API calls; harness runs are tracked separately) ---
+  - model_name: premium/sonnet
+    litellm_params:
+      model: anthropic/claude-sonnet-4-6
+      api_key: os.environ/ANTHROPIC_API_KEY
+
+general_settings:
+  master_key: os.environ/LITELLM_MASTER_KEY
+
+litellm_settings:
+  max_budget: 30            # USD, global hard stop
+  budget_duration: 30d

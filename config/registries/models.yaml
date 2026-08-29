@@ -1,0 +1,42 @@
+# Model registry — metadata the router and budget checker read.
+# Names match litellm.yaml model_name entries; cost is $/M tokens (in/out).
+
+budgets:
+  global_daily_usd: 2.00
+  per_run_usd: 0.50
+
+models:
+  - name: free/llama-70b
+    provider: groq
+    tier: free
+    cost_per_mtok_in: 0.0
+    cost_per_mtok_out: 0.0
+    strengths: [triage, routing, summarization, fast]
+
+  - name: free/deepseek
+    provider: openrouter
+    tier: free
+    cost_per_mtok_in: 0.0
+    cost_per_mtok_out: 0.0
+    strengths: [reasoning, planning]
+
+  - name: free/qwen-coder
+    provider: openrouter
+    tier: free
+    cost_per_mtok_in: 0.0
+    cost_per_mtok_out: 0.0
+    strengths: [code-review, code-triage]
+
+  - name: cheap/haiku
+    provider: anthropic
+    tier: cheap
+    cost_per_mtok_in: 1.0
+    cost_per_mtok_out: 5.0
+    strengths: [research, extraction, tool-use]
+
+  - name: premium/sonnet
+    provider: anthropic
+    tier: premium
+    cost_per_mtok_in: 3.0
+    cost_per_mtok_out: 15.0
+    strengths: [implementation, architecture, hard-reasoning]

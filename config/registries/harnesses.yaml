@@ -1,0 +1,9 @@
+# Harness registry — black-box implementation tools owned agents delegate to.
+
+harnesses:
+  - name: claude-code
+    binary: claude
+    adapter: cortex.adapters.claude_code:ClaudeCodeAdapter
+    constraints:
+      max_duration_s: 1800
+      permission_mode: acceptEdits   # never bypassPermissions; PRs only, no push to main
