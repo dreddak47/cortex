@@ -1,11 +1,10 @@
 from __future__ import annotations
 
-import os
 import sqlite3
 
 import httpx
 
-from cortex.core import ledger
+from cortex.core import env_file, ledger
 from cortex.core.registry import Registry
 
 
@@ -20,8 +19,10 @@ class Gateway:
     def __init__(self, conn: sqlite3.Connection, registry: Registry, url: str | None = None):
         self.conn = conn
         self.registry = registry
-        self.url = (url or os.environ.get("CORTEX_GATEWAY_URL", "http://localhost:4000")).rstrip("/")
-        self.key = os.environ.get("LITELLM_MASTER_KEY", "sk-cortex-local")
+        # env_file fallback means keys saved via the dashboard take effect
+        # on the next call — no server restart needed
+        self.url = (url or env_file.get("CORTEX_GATEWAY_URL", "http://localhost:4000")).rstrip("/")
+        self.key = env_file.get("LITELLM_MASTER_KEY", "sk-cortex-local")
 
     def chat(
         self,

@@ -64,7 +64,9 @@ def connect(path: str | None = None) -> sqlite3.Connection:
     db_path = path or default_path()
     if db_path != ":memory:":
         Path(db_path).parent.mkdir(parents=True, exist_ok=True)
-    conn = sqlite3.connect(db_path)
+    # check_same_thread off: FastAPI's threadpool may run a dependency and its
+    # endpoint on different threads; each connection is still per-request
+    conn = sqlite3.connect(db_path, check_same_thread=False)
     conn.row_factory = sqlite3.Row
     conn.execute("PRAGMA journal_mode=WAL")
     conn.execute("PRAGMA foreign_keys=ON")

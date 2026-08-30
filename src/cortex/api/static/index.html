@@ -1,0 +1,31 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Cortex — control plane</title>
+<link rel="stylesheet" href="/static/style.css">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='0.9em' font-size='90'>◉</text></svg>">
+</head>
+<body>
+<aside class="sidebar">
+  <div class="brand">◉ CORTEX<span>personal AI control plane</span></div>
+  <nav id="nav">
+    <button data-view="overview" class="active">Overview</button>
+    <button data-view="ideas">Ideas</button>
+    <button data-view="projects">Projects</button>
+    <button data-view="runs">Runs</button>
+    <button data-view="events">Events</button>
+    <button data-view="costs">Costs</button>
+    <button data-view="settings">Settings</button>
+  </nav>
+  <div class="side-foot">
+    <div id="gw-pill" class="pill">gateway: checking…</div>
+    <div id="spend-mini" class="muted mono"></div>
+  </div>
+</aside>
+<main id="main"><div class="loading">loading…</div></main>
+<div id="toast"></div>
+<script src="/static/app.js"></script>
+</body>
+</html>

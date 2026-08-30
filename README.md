@@ -34,6 +34,7 @@ state · everything logged · growth is a feature.
 |---|---|---|
 | 0 | Contracts, event bus, ledger, LiteLLM gateway | ✅ done |
 | 1 | Idea inbox → Router/Planner → Claude Code harness → PR | ✅ working (plain-Python router) |
+| — | Dashboard (embedded, served by FastAPI at `/`) | ✅ working |
 | 2 | Memory vault + retrieve/writeback | `vault/` placeholder |
 | 3 | Scheduler, HITL queue, channels | contracts exist (`Channel`, `RunState.NEEDS_HUMAN`) |
 | 4 | Metrics, growth tracking, cloud mirror | ledger schema is DuckDB-attachable |
@@ -43,11 +44,18 @@ state · everything logged · growth is a feature.
 
 ```bash
 uv sync                          # install
-cp .env.example .env             # add API keys when you have them
-uv run pytest                    # 14 tests
-make dev                         # API on :8000 (docs at /docs)
+cp .env.example .env             # or paste keys in the dashboard later
+uv run pytest                    # 22 tests
+make dev                         # dashboard + API on http://localhost:8000
 make gateway                     # LiteLLM proxy on :4000 (needs keys in .env)
 ```
+
+**Dashboard** at `http://localhost:8000` — Overview, Ideas, Projects, Runs,
+Events, Costs, and Settings. Everything is controllable from there: capture
+ideas, register projects, trigger routing, dispatch harness runs (dry-run by
+default), edit budget caps, and paste API keys (written to the local `.env`
+only, shown masked, gateway restartable with one click). The REST API behind
+it is at `/docs`.
 
 The system works **without any API keys**: the router degrades to
 deterministic routing, and the Claude Code harness runs on your existing
